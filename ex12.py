@@ -7,21 +7,27 @@ class Fraction:
         self.b = b
     
     def __str__(self):
-        return f"{self.a} / {self.b}"
+        return repr(self)
+    
+    def __repr__(self):
+        return f"{self.a}/{self.b}"
 
     def __eq__(self, other):
         if isinstance(other, Fraction):
-            return self.a == other.a and self.b == other.b
+            self_simp = self.simpl()
+            other_simp = other.simpl()
+            return self_simp.a == other_simp.a and self_simp.b == other_simp.b
         if isinstance(other, int):
             if other == 0:
                 return self.a == 0
-        raise Exception(f"Comparaison non supportée entre {self} et {other}")
+        raise TypeError(f"Comparaison non supportée entre {self} et {other}")
     
     def simpl(self):
         n_pgcd = pgcd(self.a, self.b)
         return Fraction(self.a//n_pgcd, self.b//n_pgcd)
     
     def inverse(self):
+        assert self.a != 0
         return Fraction(self.b, self.a)
     
     def __neg__(self):

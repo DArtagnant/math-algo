@@ -1,16 +1,19 @@
 from ex12 import Fraction
 from math import ceil
 
-def fibonacci(frac: Fraction):
-    p = [1]
-    d = frac
-    while d := frac - Fraction(1, p[-1]) != Fraction(0, 1):
-        p.append(ceil(d))
-    print(f"1/{e} " for e in p)
+def egypt(frac: Fraction):
+    if frac != 0:
+        p = ceil(frac.inverse())
+        yield p
+        yield from egypt(frac - Fraction(1, p))
+
+def egypt2(frac: Fraction):
+    while frac != 0:
+        p = ceil(frac.inverse())
+        yield p
+        frac -= Fraction(1, p)
 
 
 if __name__ == "__main__":
-    fibonacci(Fraction(1, 2))
-    fibonacci(Fraction(5, 4))
-    fibonacci(Fraction(-1, 2))
-    fibonacci(Fraction(-5, 4))
+    print(list(egypt(Fraction(25, 28))))
+    print(list(egypt2(Fraction(25, 28))))
