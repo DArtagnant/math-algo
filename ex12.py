@@ -1,6 +1,5 @@
 from math import gcd as pgcd
 
-
 class Fraction:
     def __init__(self, a:int, b:int):
         assert b != 0
@@ -11,7 +10,12 @@ class Fraction:
         return f"{self.a} / {self.b}"
 
     def __eq__(self, other):
-        return self.a == other.a and self.b == other.b
+        if isinstance(other, Fraction):
+            return self.a == other.a and self.b == other.b
+        if isinstance(other, int):
+            if other == 0:
+                return self.a == 0
+        raise Exception(f"Comparaison non supportée entre {self} et {other}")
     
     def simpl(self):
         n_pgcd = pgcd(self.a, self.b)
@@ -24,9 +28,11 @@ class Fraction:
         return Fraction(-self.a, self.b)
     
     def __mul__(self, other):
+        assert isinstance(other, Fraction)
         return Fraction(self.a * other.a, self.b * other.b).simpl()
     
     def __add__(self, other):
+        assert isinstance(other, Fraction)
         return Fraction((self.a * other.b) + (self.b * other.a), self.b * other.b).simpl()
     
     def __sub__(self, other):
