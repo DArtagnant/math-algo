@@ -33,5 +33,5 @@ fn main() {
     println!("div 1024 : {:?}", divisors(1024));
     println!("perfect 6 : {:?}", is_perfect(6));
     println!("perfect 10 : {:?}", is_perfect(10));
-    println!("perfects 10000 : {:?}", perfects(10000));
+    println!("perfects 1000000 : {:?}", perfects(1000000));
 }
