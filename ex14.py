@@ -1,13 +1,11 @@
 
 def divisors(n):
     assert n > 0
-    yield 1
-    if n != 1:
-        yield n
-    for t in range(2, int(n**0.5)+1):
+    for t in range(1, int(n**0.5)+1):
         if n % t == 0:
             yield t
-            yield n // t
+            if (d := n // t) != t:
+                yield d
 
 def is_prime(n):
     return len(tuple(divisors(n))) == 2
